@@ -88,7 +88,7 @@ class Logrb
     inst
   end
 
-  LEVELS.except(:error).each_key do |name|
+  LEVELS.except(:error, :fatal).each_key do |name|
     define_method(name) do |msg, **fields|
       return if LEVELS[@level] > LEVELS[name]
 
@@ -104,6 +104,15 @@ class Logrb
 
     wrap(:error, msg, error, fields)
     nil
+  end
+
+  # Public: Emits a fatal message to the log output, and invokes Kernel#exit
+  # with a non-zero status code. When error is provided, this method attempts
+  # to gather a stacktrace to include in the emitted entry. This log entry
+  # cannot be filtered, and is always emitted.
+  def fatal(msg, error = nil, **fields)
+    wrap(:fatal, msg, error, fields)
+    exit 1
   end
 
   # Public: Dumps a given String or Array in the same format as `hexdump -C`.

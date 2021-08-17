@@ -34,6 +34,7 @@ RSpec.describe Logrb do
       allow(Time).to receive(:now).and_return(time)
       subject.debug("This is a test", with: :fields)
       data = JSON.parse(buf.string)
+
       # CAVEAT: Asserting this JSON as one Hash cause problems since
       # the "caller" key will change quite regularly. Instead, we will test
       # each key separately.
@@ -52,6 +53,18 @@ RSpec.describe Logrb do
     it "merges fields" do
       inst = subject.with_fields(bar: :baz, foo: :fnord)
       expect(inst.fields).to eq({ foo: :fnord, bar: :baz, fux: :bax })
+    end
+  end
+
+  context "fatal" do
+    let(:buf) { StringIO.new }
+    subject { Logrb.new(buf) }
+
+    it "exits immediately" do
+      expect { subject.fatal("BOOM") }.to raise_error(SystemExit) do |err|
+        expect(err.status).to eq 1
+      end
+      expect(buf.string).to include("BOOM")
     end
   end
 end
