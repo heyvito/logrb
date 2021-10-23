@@ -25,8 +25,11 @@ require "json"
 #   current process to exit with a status 1.
 #
 # #warn(msg, **fields): Outputs a warning entry.
+#
 # #info(msg, **fields): Outputs a informational entry.
+#
 # #debug(msg, **fields): Outputs a debug entry.
+#
 # #dump(msg, data=nil): Outputs a given String or Array of bytes using the
 #   same format as `hexdump -C`.
 class Logrb
@@ -169,9 +172,9 @@ class Logrb
 
   # Internal: Performs a cleanup for a given backtrace frame.
   #
-  # trace - Trace to be clean.
+  # trace                 - Trace to be clean.
   # include_function_name - Optional. When true, includes the function name
-  #   on the normalized string. Defaults to false.
+  #                         on the normalized string. Defaults to false.
   def normalize_location(trace, include_function_name: false)
     path = trace.absolute_path
     return trace.to_s if path.nil?
@@ -189,6 +192,7 @@ class Logrb
   end
 
   # Internal: Composes a log line with given information.
+  #
   # level       - The severity of the log message
   # caller_meta - An Array containing the caller's location and name
   # msg         - The message to be logged
@@ -206,6 +210,7 @@ class Logrb
   end
 
   # Internal: Logs a text entry to the current output.
+  #
   # level       - The severity of the message to be logged.
   # msg         - The message to be logged
   # error       - Either an Exception object or nil. This parameter is used
@@ -250,6 +255,7 @@ class Logrb
   end
 
   # Internal: Logs a JSON entry to the current output.
+  #
   # level       - The severity of the message to be logged.
   # msg         - The message to be logged
   # error       - Either an Exception object or nil. This parameter is used
