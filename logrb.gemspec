@@ -5,7 +5,7 @@ require_relative "lib/logrb/version"
 Gem::Specification.new do |spec|
   spec.name          = "logrb"
   spec.version       = Logrb::VERSION
-  spec.authors       = ["Victor Gama"]
+  spec.authors       = ["Vito Sartori"]
   spec.email         = ["hey@vito.io"]
 
   spec.summary       = "Small logger inspired by Go's Zap"
