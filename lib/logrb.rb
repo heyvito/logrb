@@ -273,7 +273,10 @@ class Logrb
       ts: Time.now.utc.to_i
     }
 
-    data[:stacktrace] = backtrace(error) if level == :error
+    if level == :error
+      data[:exception] = error.message if error.respond_to?(:message)
+      data[:stacktrace] = backtrace(error)
+    end
 
     data.merge!(fields)
     write_output("#{data.to_json}\n")
