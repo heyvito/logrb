@@ -223,6 +223,7 @@ class Logrb
     fields.merge! @fields
     write_output(compose_line(level, caller_meta, msg, fields))
     if (error_message = error&.message)
+      write_output(": #{error.class.name}")
       write_output(": #{error_message}")
     end
     write_output("\n")
@@ -274,6 +275,7 @@ class Logrb
     }
 
     if level == :error
+      data[:exception_class] = error.class.to_s
       data[:exception] = error.message if error.respond_to?(:message)
       data[:stacktrace] = backtrace(error)
     end

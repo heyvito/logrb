@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    logrb (0.1.4)
+    logrb (0.1.5)
       hexdump (~> 0.3.0)
 
 GEM
