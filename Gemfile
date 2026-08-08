@@ -2,11 +2,15 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in logrb.gemspec
+# Specify your gem's dependencies in mfp.gemspec
 gemspec
+
+gem "irb"
 
 gem "rake", "~> 13.0"
 
 gem "rspec", "~> 3.0"
 
-gem "rubocop", "~> 1.7"
+gem "rubocop", "~> 1.21", require: false
+
+gem "debug", "~> 1.11"
