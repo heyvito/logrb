@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "logrb/version"
+require_relative "logrb/noop_logger"
 require "hexdump"
 require "json"
 
@@ -33,6 +34,12 @@ require "json"
 # #dump(msg, data=nil): Outputs a given String or Array of bytes using the
 #   same format as `hexdump -C`.
 class Logrb
+  NOOP = NoopLogger.new
+
+  # Returns a logger that does not perform any kind of operation; all calls
+  # to its methods are noops, while exposing the same interface of Logrb itself.
+  def self.noop = Logrb::NOOP
+
   attr_accessor :fields, :level, :format
 
   COLORS = {
@@ -71,7 +78,7 @@ class Logrb
   # output - an IO-like object that implements a #write method.
   # format - Optional. Indicates the format used to output log entries.
   #          Supports :text (default) and :json.
-  # level  - Level to filter this logger instance
+  # level  - Level to filter this logger instance. Defaults to :debug
   # fields - Fields to include in emitted entries
   def initialize(output, format: :text, level: :debug, **fields)
     @output = output
