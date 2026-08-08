@@ -189,7 +189,7 @@ class Logrb
     if (root = Gem.path.find { |p| path.start_with?(p) })
       path = "$GEM_PATH#{path[root.length..]}"
     end
-    "#{path}:#{trace.lineno}#{include_function_name ? " in `#{trace.label}'" : ""}"
+    "#{path}:#{trace.lineno}#{" in `#{trace.label}'" if include_function_name}"
   end
 
   # Internal: Returns a string containing a stacktrace of the current

@@ -11,7 +11,7 @@ RSpec.describe Logrb do
 
     it "writes output messages" do
       subject.debug("This is a test", with: :fields)
-      expect(buf.string).to match(/^([^\s]+) [^D]+DEBUG[^:]+: <top \(required\)>: This is a test {:with=>:fields}\n$/)
+      expect(buf.string).to match(/^[^\s]+\s[^D]+DEBUG[^:]+: <top \(required\)>: This is a test {with: :fields}/)
     end
 
     it "writes dumps" do
